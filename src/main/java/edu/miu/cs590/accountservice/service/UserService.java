@@ -7,11 +7,16 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserService {
 
-    public ResponseEntity<ServerResponse> authenticateUser(AuthenticationDto authenticationDto);
+    ResponseEntity<ServerResponse> authenticateUser(AuthenticationDto authenticationDto);
 
-    public ResponseEntity<ServerResponse> registerUser(User user);
+    ResponseEntity<ServerResponse> registerUser(User user);
 
-    public ResponseEntity<ServerResponse> findById(Long id);
+    ResponseEntity<ServerResponse> findById(Long id);
 
+    ResponseEntity<ServerResponse> findUserAddressById(Long id);
+
+    ResponseEntity<ServerResponse> getUserDetailsFromUserName(String username);
+
+    ResponseEntity<ServerResponse> getEmailFromUserId(Long id);
 }
 

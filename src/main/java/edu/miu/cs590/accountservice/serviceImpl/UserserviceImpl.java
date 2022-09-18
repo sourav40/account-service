@@ -1,10 +1,12 @@
 package edu.miu.cs590.accountservice.serviceImpl;
 
 import edu.miu.cs590.accountservice.dto.AuthenticationDto;
+import edu.miu.cs590.accountservice.entity.Address;
 import edu.miu.cs590.accountservice.entity.User;
 import edu.miu.cs590.accountservice.jwt.JWTUtility;
 import edu.miu.cs590.accountservice.repsitory.UserRepository;
 import edu.miu.cs590.accountservice.service.UserService;
+import edu.miu.cs590.accountservice.util.MyUserDetails;
 import edu.miu.cs590.accountservice.util.ResponseUtility;
 import edu.miu.cs590.accountservice.util.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +75,41 @@ public class UserserviceImpl implements UserService {
             return new ResponseEntity<ServerResponse>(serverResponse, serverResponse.getHttpStatus());
         } else {
             ServerResponse serverResponse = ResponseUtility.getFailedServerResponse("Unable to fetch user at this time.");
+            return new ResponseEntity<ServerResponse>(serverResponse, serverResponse.getHttpStatus());
+        }
+    }
+
+    @Override
+    public ResponseEntity<ServerResponse> findUserAddressById(Long id) {
+        Address address = userRepository.findUserAddressById(id);
+        if (address != null) {
+            ServerResponse serverResponse = ResponseUtility.getSuccessfulServerResponse(address, "User address fetched.");
+            return new ResponseEntity<ServerResponse>(serverResponse, serverResponse.getHttpStatus());
+        }
+        ServerResponse serverResponse = ResponseUtility.getFailedServerResponse("Unable to fetch user address at this time.");
+        return new ResponseEntity<ServerResponse>(serverResponse, serverResponse.getHttpStatus());
+    }
+
+    @Override
+    public ResponseEntity<ServerResponse> getUserDetailsFromUserName(String username) {
+        try {
+            MyUserDetails userDetails = myUserService.loadUserByUsername(username);
+            ServerResponse serverResponse = ResponseUtility.getSuccessfulServerResponse(Boolean.TRUE, "User details fetched");
+            return new ResponseEntity<ServerResponse>(serverResponse, serverResponse.getHttpStatus());
+        } catch (Exception e) {
+            ServerResponse serverResponse = ResponseUtility.getFailedServerResponse("Unable to fetch user details at this time.");
+            return new ResponseEntity<ServerResponse>(serverResponse, serverResponse.getHttpStatus());
+        }
+    }
+
+    @Override
+    public ResponseEntity<ServerResponse> getEmailFromUserId(Long id) {
+        try {
+            String email = userRepository.getEmailFromUserId(id);
+            ServerResponse serverResponse = ResponseUtility.getSuccessfulServerResponse(email, "User details fetched");
+            return new ResponseEntity<ServerResponse>(serverResponse, serverResponse.getHttpStatus());
+        } catch (Exception e) {
+            ServerResponse serverResponse = ResponseUtility.getFailedServerResponse("Unable to fetch email at this time.");
             return new ResponseEntity<ServerResponse>(serverResponse, serverResponse.getHttpStatus());
         }
     }

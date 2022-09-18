@@ -31,4 +31,19 @@ public class UserController {
         return userService.registerUser(user);
     }
 
+    @GetMapping("/user/address/{id}")
+    public ResponseEntity<ServerResponse> getAddressByUserId(@PathVariable Long id) {
+        return userService.findUserAddressById(id);
+    }
+
+    @GetMapping("/user/details/{username}")
+    public ResponseEntity<ServerResponse> getUserDetailsFromUserName(@PathVariable String username) {
+        return userService.getUserDetailsFromUserName(username);
+    }
+
+    @GetMapping("/user/email/{id}")
+    public ResponseEntity<ServerResponse> getEmailFromUserId(@PathVariable Long id){
+        System.out.println("id"+id);
+        return userService.getEmailFromUserId(id);
+    }
 }
