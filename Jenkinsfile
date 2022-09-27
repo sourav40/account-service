@@ -13,14 +13,13 @@ pipeline {
              }
 }
 
-          stage('Build Docker Image') {
+          stage('Build Docker Image Locally') {
               steps {
                       script{
                         sh 'docker build -t account-service .'
                       }
      }
      }
-
             stage('Push Docker Image To Docker Hub') {
                    steps {
                            script{
