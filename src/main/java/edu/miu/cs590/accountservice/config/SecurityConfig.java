@@ -1,7 +1,6 @@
 package edu.miu.cs590.accountservice.config;
 
 import edu.miu.cs590.accountservice.filter.JWTFilter;
-import edu.miu.cs590.accountservice.service.UserService;
 import edu.miu.cs590.accountservice.serviceImpl.MyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
