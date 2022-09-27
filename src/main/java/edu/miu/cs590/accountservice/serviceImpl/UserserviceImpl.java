@@ -81,7 +81,16 @@ public class UserserviceImpl implements UserService {
 
     @Override
     public ResponseEntity<ServerResponse> findUserAddressById(Long id) {
-        Address address = userRepository.findUserAddressById(id);
+        System.out.println("Id to get the address >>>" + id);
+        Address address = null;
+        try {
+            address = userRepository.findUserAddressById(id);
+        } catch (Exception e) {
+            System.out.println("exception occurred...." + e.toString());
+            e.printStackTrace();
+            address = null;
+        }
+        System.out.println("address of the user ::" + address);
         if (address != null) {
             ServerResponse serverResponse = ResponseUtility.getSuccessfulServerResponse(address, "User address fetched.");
             return new ResponseEntity<ServerResponse>(serverResponse, serverResponse.getHttpStatus());

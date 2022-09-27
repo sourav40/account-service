@@ -1,4 +1,4 @@
-FROM openjdk:17-alpine
+FROM openjdk:17
 ENV APP_FILE account-service.jar
 ENV APP_HOME /usr/apps
 EXPOSE 8080
